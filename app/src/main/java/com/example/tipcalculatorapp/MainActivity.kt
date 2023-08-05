@@ -30,7 +30,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import java.lang.NumberFormatException
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,10 +48,14 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TipCalculator(modifier: Modifier = Modifier){
 
+    /**
+     * used delegate concept
+     * amount is being used in two views
+     * this concept is called @StateHoisting
+     */
     var amount by remember {
        mutableStateOf("0")
     }
@@ -66,14 +69,7 @@ fun TipCalculator(modifier: Modifier = Modifier){
             .padding(start = 20.dp, end = 20.dp), textAlign = TextAlign.Left)
         Spacer(modifier = Modifier.padding(10.dp))
 
-        TextField(value = amount, onValueChange = {
-            amount = it
-        }, modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 20.dp, end = 20.dp),
-        singleLine = true,
-        label = { Text(text = "Bill Amount")},
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number))
+        EditTextLayout(value = amount, onValueChanged = {amount = it})
 
         Spacer(modifier = Modifier.padding(10.dp))
 
@@ -85,6 +81,22 @@ fun TipCalculator(modifier: Modifier = Modifier){
             modifier =   Modifier.padding(start = 20.dp, end = 20.dp)
         )
     }
+}
+
+/**
+ * EditTextLayout is now StateLess
+ * It is not storing its own state
+ * state is being passed by other composable function
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun EditTextLayout(value: String,onValueChanged: (String)->Unit){
+    TextField(value = value, onValueChange = onValueChanged, modifier = Modifier
+        .fillMaxWidth()
+        .padding(start = 20.dp, end = 20.dp),
+        singleLine = true,
+        label = { Text(text = "Bill Amount")},
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number))
 }
 
 fun getCalculatedTip(value: String): Float{
