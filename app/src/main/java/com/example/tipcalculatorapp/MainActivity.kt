@@ -10,11 +10,14 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
@@ -92,13 +95,13 @@ fun TipCalculator(modifier: Modifier = Modifier){
 
         EditTextLayout(value = amount, onValueChanged = {amount = it},
             R.string.bill_amt,
-            androidx.core.R.drawable.notification_bg,modifier1)
+            R.drawable.ic_launcher_background,modifier1)
 
         Spacer(modifier = Modifier.padding(10.dp))
 
         EditTextLayout(value = percentage, onValueChanged = {percentage = it},
             R.string.tip_percentage,
-            androidx.core.R.drawable.notification_action_background, modifier1)
+            R.drawable.ic_launcher_foreground, modifier1)
 
         Spacer(modifier = Modifier.padding(10.dp))
 
@@ -130,7 +133,10 @@ fun EditTextLayout(value: String,onValueChanged: (String)->Unit,
         modifier = modifier,
         singleLine = true,
         label = { Text(text = stringResource(id = label))},
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number))
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number), leadingIcon = {Icon(
+            painter = painterResource(id = leadingIcon),
+            contentDescription = null, modifier = Modifier.width(30.dp).height(30.dp)
+        )})
 }
 
 @Composable
