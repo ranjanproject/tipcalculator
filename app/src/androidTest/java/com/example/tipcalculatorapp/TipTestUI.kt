@@ -1,10 +1,8 @@
 package com.example.tipcalculatorapp
 
 import android.content.Context
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performKeyInput
 import androidx.compose.ui.test.performTextInput
 import androidx.test.platform.app.InstrumentationRegistry
 import com.example.tipcalculatorapp.ui.theme.TipCalculatorAppTheme
